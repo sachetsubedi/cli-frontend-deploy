@@ -1,0 +1,9 @@
+#userInput input{
+    background: transparent;
+}
+#userInput input:focus{
+    outline: none;
+}
+#messageContainer::-webkit-scrollbar{
+    appearance: none;
+}
