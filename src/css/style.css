@@ -6,4 +6,5 @@
 }
 #messageContainer::-webkit-scrollbar{
     appearance: none;
+    display: none;
 }
