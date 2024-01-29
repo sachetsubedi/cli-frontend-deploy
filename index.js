@@ -1,5 +1,5 @@
-// const socket = io("https://chat-cli-1587.onrender.com");
-const socket = io("http://localhost:3000");
+const socket = io("https://chat-cli-1587.onrender.com");
+// const socket = io("http://localhost:3000");
 let userId;
 let roomId='master';
 const bottomBarUserName = document.getElementById("bottomBarUserName");
