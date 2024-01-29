@@ -22,7 +22,7 @@ socket.on("connectionSuccess", (userName) => {
 	userId=userName;
 	document.getElementById("userNameDisplay").innerHTML = `${userName}`;
 	const newLi = document.createElement("li");
-	newLi.innerHTML = `You are connected as <span class="text-lime-500">${userName} </span> <br> You are connected to room: <span class="text-lime-500">${roomId}</span> `;
+	newLi.innerHTML = `You are connected as <span class="text-lime-500">${userName} </span> <br> You are connected to room: <span class="text-lime-500">${roomId}</span> <br> <span class="text-yellow-400">/help</span> for help`;
 	newLi.style.fontWeight = "bold";
 	document.getElementById("messageContainer").append(newLi);
 	messageContainer.scrollTop = messageContainer.scrollHeight;
@@ -136,12 +136,14 @@ document.body.addEventListener("keydown", (e) => {
 			const room=inputBox.value.slice("/joinroom ".length);
 			socket.emit('joinRoom',roomId,room);
 			return inputBox.value='';
+		}else if(inputBox.value=='/help'){
+			return displayHelp();
 		}
 		 else {
 			sendMessage(inputBox.value);
 			// clear input
 			messageContainer.scrollTop = messageContainer.scrollHeight;
-			inputBox.value = "";
+			return inputBox.value = "";
 		}
 	}
 });
@@ -158,3 +160,20 @@ setInterval(() => {
 		? (inputBox.style.color = "yellow")
 		: (inputBox.style.color = "white");
 }, 200);
+
+
+const displayHelp=()=>{
+	const newLi=document.createElement('li');
+	newLi.innerHTML=`
+	-------------------------------------------------------------- <br>
+	<span class="text-yellow-400">/rename </span> new_username ---------------- change you username <br>
+	<span class="text-yellow-400">/createroom </span>---------------- create a room <br>
+	<span class="text-yellow-400">/joinroom </span>room_id ---------------- join a room <br>  
+	-------------------------------------------------------------- <br>
+	`
+	
+	;
+	newLi.classList.add('font-semibold')
+	messageContainer.append(newLi);
+	return inputBox.value='';
+}
