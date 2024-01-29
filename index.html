@@ -33,28 +33,37 @@
 					<input type="text" class="font-semibold" id="inputBox" autofocus>
 				</div>
 			</div>
-			<div class=" bottom-bar py-1 px-2 bg-blue-500 flex gap-10">
-				<div class="flex gap-2  items-center">
-					<i class="fa-solid fa-user"></i>
-					<div id="bottomBarUserName">sachet</div>
+
+
+			<!-- bottom bar -->
+			<div class=" bottom-bar py-1 px-2 bg-blue-500 flex justify-between items-center">
+				<div class="left flex gap-10">
+					<div class="flex gap-2  items-center">
+						<i class="fa-solid fa-user"></i>
+						<div id="bottomBarUserName">sachet</div>
+					</div>
+					<div class="room flex gap-2 items-center">
+						<i class="fa-solid fa-globe"></i>
+						<div id="bottomBarRoomId" >Room 1</div>
+					</div>
 				</div>
-				<div class="room flex gap-2 items-center">
-					<i class="fa-solid fa-globe"></i>
-					<div id="bottomBarRoomId" >Room 1</div>
+				<div class="right">
+					<div class="icons p-1 bg-gray-700 rounded-full flex gap-3 " id="iconsContainer">
+						<a href="https://facebook.com/sachetsubedi001" class="hidden-icons hidden"><i class=" fa-brands fa-facebook"></i></a>
+						<a href="https://instagram.com/sachet_____" class="hidden-icons hidden"><i class=" fa-brands fa-instagram"></i></a>
+						<a href="https://github.com/scht001" class="hidden-icons hidden"><i class=" fa-brands fa-github"></i></a>
+						<a href="https://sachetsubedi001.com.np" class="hidden-icons hidden"><i class=" fa-solid fa-globe"></i></a>
+						<i class=" fa-solid fa-at" id="shownIcon"></i>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="mt-[15%] social-icons flex gap-4 border-2 border-white rounded-md px-5 py-2">
-			<a href="https://facebook.com/sachetsubedi001"><i class="fa-brands fa-facebook"></i></a>
-			<a href="https://instagram.com/sachet_____"><i class="fa-brands fa-instagram"></i></a>
-			<a href="https://sachetsubedi001.com.np"><i class="fa-solid fa-globe"></i></a>
-			<a href="https://github.com/scht001"><i class="fa-brands fa-github"></i>
-			</a>
-		</div>
+		
 	</div>
 </body>
 <script src="https://cdn.tailwindcss.com"></script>
 
 <script src="index.js" type="module"></script>
+<script src="src/scripts/socialIconsController.js"></script>
 
 </html>

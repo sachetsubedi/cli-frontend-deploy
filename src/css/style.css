@@ -8,9 +8,13 @@
     appearance: none;
     display: none;
 }
-.social-icons i:hover{
-    color: rgb(0, 166, 231);
-    transform: scale(1.5);
+.icons i:hover{
+    color: rgb(81, 255, 0);
+    transform: translateY(-5px);
+    scale: 1.5;
     cursor: pointer;
     transition: 0.2s ease-in-out;
+}
+.icons, .hidden-icons{
+    transition:0.1 ease-in-out;
 }
