@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Document</title>
+	<title>CHAT CLI</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"
 		integrity="sha512-tE1z+95+lMCGwy+9PnKgUSIeHhvioC9lMlI7rLWU0Ps3XTdjRygLcy4mLuL0JAoK4TLdQEyP0yOl/9dMOqpH/Q=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -14,7 +14,7 @@
 </head>
 
 <body>
-	<div class="main flex bg-gray-700 h-[100vh] text-white justify-center">
+	<div class="main flex flex-col bg-gray-700 h-[100vh] text-white  items-center">
 		<div class="chatCLIContainer h-full w-full md:h-[50%] md:w-[50%] md:mt-[5%] border-2 border-white rounded-md  pt-5 flex flex-col justify-between">
 			<div class="px-5">
 				<div class="header text-center font-semibold">Chat CLI</div>
@@ -40,9 +40,16 @@
 				</div>
 				<div class="room flex gap-2 items-center">
 					<i class="fa-solid fa-globe"></i>
-					<div id="bttomBarRoomId" >Room 1</div>
+					<div id="bottomBarRoomId" >Room 1</div>
 				</div>
 			</div>
+		</div>
+		<div class="mt-[15%] social-icons flex gap-4 border-2 border-white rounded-md px-5 py-2">
+			<a href="https://facebook.com/sachetsubedi001"><i class="fa-brands fa-facebook"></i></a>
+			<a href="https://instagram.com/sachet_____"><i class="fa-brands fa-instagram"></i></a>
+			<a href="https://sachetsubedi001.com.np"><i class="fa-solid fa-globe"></i></a>
+			<a href="https://github.com/scht001"><i class="fa-brands fa-github"></i>
+			</a>
 		</div>
 	</div>
 </body>

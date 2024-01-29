@@ -1,7 +1,9 @@
-const socket = io("https://chat-cli-1587.onrender.com");
-// const socket = io("http://localhost:3000");
+// const socket = io("https://chat-cli-1587.onrender.com");
+const socket = io("http://localhost:3000");
 let userId;
 let roomId='master';
+const bottomBarUserName = document.getElementById("bottomBarUserName");
+const bottomBarRoomId = document.getElementById("bottomBarRoomId");
 // create connection
 if (localStorage.getItem("userName")) {
 	socket.emit("createConnection", localStorage.getItem("userName"));
@@ -11,15 +13,20 @@ if (localStorage.getItem("userName")) {
 
 const messageContainer = document.getElementById("messageContainer");
 
+const refreshDetails=()=>{
+	bottomBarUserName.innerHTML=userId;
+	bottomBarRoomId.innerHTML=roomId;
+}
+
 socket.on("connectionSuccess", (userName) => {
 	userId=userName;
 	document.getElementById("userNameDisplay").innerHTML = `${userName}`;
-	document.getElementById("bottomBarUserName").innerHTML = userName;
 	const newLi = document.createElement("li");
-	newLi.innerHTML = `You are connected as <span class="text-lime-500">${userName} </span>`;
+	newLi.innerHTML = `You are connected as <span class="text-lime-500">${userName} </span> <br> You are connected to room: <span class="text-lime-500">${roomId}</span> `;
 	newLi.style.fontWeight = "bold";
 	document.getElementById("messageContainer").append(newLi);
 	messageContainer.scrollTop = messageContainer.scrollHeight;
+	refreshDetails();
 });
 
 const addChatItem = (userName, message) => {
@@ -68,8 +75,6 @@ socket.on("rename", ({ oldUsername, userName }) => {
 });
 
 // on self rename
-const bottomBarUserName = document.getElementById("bottomBarUserName");
-const bottomBarRoomId = document.getElementById("bottomBarRoomId");
 
 socket.on("renamed", ({ oldUsername, userName }) => {
 	const newLi = document.createElement("li");
@@ -80,8 +85,8 @@ socket.on("renamed", ({ oldUsername, userName }) => {
 	inputBox.value = "";
 	localStorage.setItem("userName", userName);
 	document.getElementById("userNameDisplay").innerHTML = userName;
-	bottomBarUserName.innerHTML = userName;
 	userId=userName;
+	refreshDetails();
 });
 
 // room created
@@ -92,10 +97,12 @@ socket.on("roomCreated", (roomId) => {
 });
 
 // room joined
-socket.on("roomJoined", (roomId) => {
+socket.on("roomJoined", (room) => {
 	const newLi = document.createElement("li");
-	newLi.innerHTML = `You joined a room: <span class="text-lime-400"> ${roomId} </span>`;
+	newLi.innerHTML = `You joined a room: <span class="text-lime-400"> ${room} </span>`;
 	messageContainer.append(newLi);
+	roomId=room;
+	refreshDetails();
 });
 
 // someone joined the room
