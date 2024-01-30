@@ -1,5 +1,3 @@
-// const messageContainer=document.getElementById('messageContainer');
-// const inputBox=document.getElementById('inputBox');
 let history=[];
 let historyIndex;
 const storeHistory=(data)=>{
