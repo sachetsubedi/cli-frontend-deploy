@@ -124,7 +124,7 @@ document.body.addEventListener("click", () => {
 document.body.addEventListener("keydown", (e) => {
 	if (e.key === "Enter") {
 		const inputBox = document.getElementById("inputBox");
-
+		storeHistory(inputBox.value);
 		// rename
 		if (inputBox.value.startsWith("/rename")) {
 			const userName = inputBox.value.slice("/rename ".length);
