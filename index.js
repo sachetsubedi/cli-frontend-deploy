@@ -127,7 +127,7 @@ document.body.addEventListener("keydown", (e) => {
 		storeHistory(inputBox.value);
 		// rename
 		if (inputBox.value.startsWith("/rename")) {
-			const userName = inputBox.value.slice("/rename ".length);
+			const userName = (inputBox.value.slice("/rename ".length)).slice(0,20);
 			return socket.emit("rename", userName);
 		}else if(inputBox.value.startsWith("/createroom")){
 			socket.emit("createRoom",roomId);

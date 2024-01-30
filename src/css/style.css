@@ -8,6 +8,9 @@
     appearance: none;
     display: none;
 }
+ul li{
+    font-weight: bold;
+}
 
 @media (min-width:768px) {
     
