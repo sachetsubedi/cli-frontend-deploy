@@ -1,7 +1,13 @@
 const socket = io("https://chat-cli-s8zw.onrender.com");
 // const socket = io("http://localhost:3000");
 let userId;
-let roomId='master';
+let roomId = "master";
+
+const selfConnectedAudio = new Audio("./public/assets/audio/selfConnected.mp3");
+const messageAudio = new Audio("./public/assets/audio/message.mp3");
+const userConnectedAudio=new Audio("./public/assets/audio/UserConnected.mp3");
+const userDisconnectedAudio=new Audio("./public/assets/audio/userDisconnect.mp3");
+
 const bottomBarUserName = document.getElementById("bottomBarUserName");
 const bottomBarRoomId = document.getElementById("bottomBarRoomId");
 // create connection
@@ -13,15 +19,16 @@ if (localStorage.getItem("userName")) {
 
 const messageContainer = document.getElementById("messageContainer");
 
-const refreshDetails=()=>{
-	bottomBarUserName.innerHTML=userId;
-	bottomBarRoomId.innerHTML=roomId;
-}
+const refreshDetails = () => {
+	bottomBarUserName.innerHTML = userId;
+	bottomBarRoomId.innerHTML = roomId;
+};
 
 socket.on("connectionSuccess", (userName) => {
-	animationContainer.classList.add('hidden');
-	loading=false;
-	userId=userName;
+	// selfConnectedAudio.play();
+	animationContainer.classList.add("hidden");
+	loading = false;
+	userId = userName;
 	document.getElementById("userNameDisplay").innerHTML = `${userName}`;
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `You are connected as <span class="text-lime-500">${userName} </span> <br> You are connected to room: <span class="text-lime-500">${roomId}</span> <br> <span class="text-yellow-400">/help</span> for help`;
@@ -38,7 +45,10 @@ const addChatItem = (userName, message) => {
 	newLi.style.marginBottom = "5px";
 	if (userName == userId) {
 		newLi.firstChild.classList.replace("bg-blue-500", "bg-green-500");
+	} else {
+		messageAudio.play();
 	}
+
 	messageContainer.append(newLi);
 	messageContainer.scrollTop = messageContainer.scrollHeight;
 };
@@ -49,6 +59,7 @@ socket.on("message", ({ userName, message }) => {
 
 // user connected alert
 socket.on("connected", (userName) => {
+	userConnectedAudio.play();
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `<span class="text-lime-400"> ${userName} </span> connected`;
 	newLi.style.fontWeight = "bold";
@@ -58,6 +69,7 @@ socket.on("connected", (userName) => {
 
 // on disconnect
 socket.on("disconnected", (userName) => {
+	userDisconnectedAudio.play();
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `${userName} disconnected`;
 	newLi.classList.add("text-red-500");
@@ -87,7 +99,7 @@ socket.on("renamed", ({ oldUsername, userName }) => {
 	inputBox.value = "";
 	localStorage.setItem("userName", userName);
 	document.getElementById("userNameDisplay").innerHTML = userName;
-	userId=userName;
+	userId = userName;
 	refreshDetails();
 });
 
@@ -103,33 +115,30 @@ socket.on("roomJoined", (room) => {
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `You joined a room: <span class="text-lime-400"> ${room} </span>`;
 	messageContainer.append(newLi);
-	roomId=room;
+	roomId = room;
 	refreshDetails();
 });
 
 // left custom room
 
-socket.on("leftCustomRoom",(user)=>{
-	const newLi=document.createElement('li');
-	newLi.innerHTML=`<span class="text-yellow-400">${user}</span> left the room`;
-	newLi.classList.add('text-red-500');
+socket.on("leftCustomRoom", (user) => {
+	const newLi = document.createElement("li");
+	newLi.innerHTML = `<span class="text-yellow-400">${user}</span> left the room`;
+	newLi.classList.add("text-red-500");
 	messageContainer.append(newLi);
-})
+});
 
 // someone joined the room
-socket.on('join',(userName)=>{
+socket.on("join", (userName) => {
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `<span class="text-lime-400">${userName} </span> joined the room `;
 	messageContainer.append(newLi);
-})
-
-
-
+});
 
 // input always in focus
 const inputBox = document.getElementById("inputBox");
 document.body.addEventListener("click", () => {
-	inputBox.focus(); 
+	inputBox.focus();
 });
 
 document.body.addEventListener("keydown", (e) => {
@@ -138,23 +147,22 @@ document.body.addEventListener("keydown", (e) => {
 		storeHistory(inputBox.value);
 		// rename
 		if (inputBox.value.startsWith("/rename")) {
-			const userName = (inputBox.value.slice("/rename ".length)).slice(0,20);
+			const userName = inputBox.value.slice("/rename ".length).slice(0, 20);
 			return socket.emit("rename", userName);
-		}else if(inputBox.value.startsWith("/createroom")){
-			socket.emit("createRoom",roomId);
-			return inputBox.value='';
-		}else if(inputBox.value.startsWith('/join')){
-			const room=inputBox.value.slice("/joinroom ".length);
-			socket.emit('joinRoom',roomId,room);
-			return inputBox.value='';
-		}else if(inputBox.value=='/help'){
+		} else if (inputBox.value.startsWith("/createroom")) {
+			socket.emit("createRoom", roomId);
+			return (inputBox.value = "");
+		} else if (inputBox.value.startsWith("/join")) {
+			const room = inputBox.value.slice("/joinroom ".length);
+			socket.emit("joinRoom", roomId, room);
+			return (inputBox.value = "");
+		} else if (inputBox.value == "/help") {
 			return displayHelp();
-		}
-		 else {
+		} else {
 			sendMessage(inputBox.value);
 			// clear input
 			messageContainer.scrollTop = messageContainer.scrollHeight;
-			return inputBox.value = "";
+			return (inputBox.value = "");
 		}
 	}
 });
@@ -172,19 +180,16 @@ setInterval(() => {
 		: (inputBox.style.color = "white");
 }, 200);
 
-
-const displayHelp=()=>{
-	const newLi=document.createElement('li');
-	newLi.innerHTML=`
+const displayHelp = () => {
+	const newLi = document.createElement("li");
+	newLi.innerHTML = `
 	-------------------------------------------------------------- <br>
 	<span class="text-yellow-400">/rename </span> new_username ---------------- change you username <br>
 	<span class="text-yellow-400">/createroom </span>---------------- create a room <br>
 	<span class="text-yellow-400">/joinroom </span>room_id ---------------- join a room <br>  
 	-------------------------------------------------------------- <br>
-	`
-	
-	;
-	newLi.classList.add('font-semibold')
+	`;
+	newLi.classList.add("font-semibold");
 	messageContainer.append(newLi);
-	return inputBox.value='';
-}
+	return (inputBox.value = "");
+};
