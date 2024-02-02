@@ -1,5 +1,5 @@
-const socket = io("https://chat-cli-s8zw.onrender.com");
-// const socket = io("http://localhost:3000");
+// const socket = io("https://chat-cli-s8zw.onrender.com");
+const socket = io("http://localhost:3000");
 let userId;
 let roomId='master';
 const bottomBarUserName = document.getElementById("bottomBarUserName");
@@ -50,7 +50,7 @@ socket.on("message", ({ userName, message }) => {
 // user connected alert
 socket.on("connected", (userName) => {
 	const newLi = document.createElement("li");
-	newLi.innerHTML = `<span class="text-yellow-400"> ${userName} </span> joined the room`;
+	newLi.innerHTML = `<span class="text-lime-400"> ${userName} </span> connected`;
 	newLi.style.fontWeight = "bold";
 	messageContainer.append(newLi);
 	messageContainer.scrollTop = messageContainer.scrollHeight;
@@ -59,7 +59,7 @@ socket.on("connected", (userName) => {
 // on disconnect
 socket.on("disconnected", (userName) => {
 	const newLi = document.createElement("li");
-	newLi.innerHTML = `${userName} left the room`;
+	newLi.innerHTML = `${userName} disconnected`;
 	newLi.classList.add("text-red-500");
 	newLi.style.fontWeight = "bold";
 	messageContainer.append(newLi);
@@ -107,10 +107,19 @@ socket.on("roomJoined", (room) => {
 	refreshDetails();
 });
 
+// left custom room
+
+socket.on("leftCustomRoom",(user)=>{
+	const newLi=document.createElement('li');
+	newLi.innerHTML=`<span class="text-yellow-400">${user}</span> left the room`;
+	newLi.classList.add('text-red-500');
+	messageContainer.append(newLi);
+})
+
 // someone joined the room
 socket.on('join',(userName)=>{
 	const newLi = document.createElement("li");
-	newLi.innerHTML = `${userName} joined the room `;
+	newLi.innerHTML = `<span class="text-lime-400">${userName} </span> joined the room `;
 	messageContainer.append(newLi);
 })
 
