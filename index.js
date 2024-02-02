@@ -19,6 +19,8 @@ const refreshDetails=()=>{
 }
 
 socket.on("connectionSuccess", (userName) => {
+	animationContainer.classList.add('hidden');
+	loading=false;
 	userId=userName;
 	document.getElementById("userNameDisplay").innerHTML = `${userName}`;
 	const newLi = document.createElement("li");
