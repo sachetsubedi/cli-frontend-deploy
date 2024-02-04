@@ -8,6 +8,23 @@ const messageAudio = new Audio("./public/assets/audio/message.mp3");
 const userConnectedAudio=new Audio("./public/assets/audio/UserConnected.mp3");
 const userDisconnectedAudio=new Audio("./public/assets/audio/userDisconnect.mp3");
 
+const playMessage=()=>{
+	messageAudio.currentTime=0;
+	messageAudio.play();
+}
+const playSelfConnected=()=>{
+	selfConnectedAudio.currentTime=0;
+	selfConnectedAudio.play();
+}
+const playUserConnected=()=>{
+	userConnectedAudio.currentTime=0;
+	userConnectedAudio.play();
+}
+const playUserDisconnected=()=>{
+	userDisconnectedAudio.currentTime=0;
+	userDisconnectedAudio.play();
+}
+
 const bottomBarUserName = document.getElementById("bottomBarUserName");
 const bottomBarRoomId = document.getElementById("bottomBarRoomId");
 // create connection
@@ -46,7 +63,7 @@ const addChatItem = (userName, message) => {
 	if (userName == userId) {
 		newLi.firstChild.classList.replace("bg-blue-500", "bg-green-500");
 	} else {
-		messageAudio.play();
+		playMessage();
 	}
 
 	messageContainer.append(newLi);
@@ -59,7 +76,7 @@ socket.on("message", ({ userName, message }) => {
 
 // user connected alert
 socket.on("connected", (userName) => {
-	userConnectedAudio.play();
+	playUserConnected();
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `<span class="text-lime-400"> ${userName} </span> connected`;
 	newLi.style.fontWeight = "bold";
@@ -69,7 +86,7 @@ socket.on("connected", (userName) => {
 
 // on disconnect
 socket.on("disconnected", (userName) => {
-	userDisconnectedAudio.play();
+	playUserDisconnected();
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `${userName} disconnected`;
 	newLi.classList.add("text-red-500");
@@ -108,6 +125,8 @@ socket.on("roomCreated", (roomId) => {
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `You created a room: <span class="text-lime-400"> ${roomId} </span>`;
 	messageContainer.append(newLi);
+	messageContainer.scrollTop = messageContainer.scrollHeight;
+
 });
 
 // room joined
@@ -117,6 +136,8 @@ socket.on("roomJoined", (room) => {
 	messageContainer.append(newLi);
 	roomId = room;
 	refreshDetails();
+	messageContainer.scrollTop = messageContainer.scrollHeight;
+
 });
 
 // left custom room
@@ -126,6 +147,7 @@ socket.on("leftCustomRoom", (user) => {
 	newLi.innerHTML = `<span class="text-yellow-400">${user}</span> left the room`;
 	newLi.classList.add("text-red-500");
 	messageContainer.append(newLi);
+	playUserDisconnected();
 });
 
 // someone joined the room
@@ -133,6 +155,8 @@ socket.on("join", (userName) => {
 	const newLi = document.createElement("li");
 	newLi.innerHTML = `<span class="text-lime-400">${userName} </span> joined the room `;
 	messageContainer.append(newLi);
+	playUserConnected();
+	messageContainer.scrollTop=messageContainer.scrollHeight;
 });
 
 // input always in focus
@@ -144,6 +168,9 @@ document.body.addEventListener("click", () => {
 document.body.addEventListener("keydown", (e) => {
 	if (e.key === "Enter") {
 		const inputBox = document.getElementById("inputBox");
+
+		if(!inputBox.value) return;
+
 		storeHistory(inputBox.value);
 		// rename
 		if (inputBox.value.startsWith("/rename")) {
