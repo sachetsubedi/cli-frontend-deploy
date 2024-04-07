@@ -1,5 +1,5 @@
-const socket = io(`https://cli-backend.sachetsubedi001.com.np`);
-// const socket = io("http://localhost:3000");
+// const socket = io(`https://cli-backend.sachetsubedi001.com.np`);
+const socket = io("http://localhost:3000");
 let userId;
 let roomId = "master";
 
