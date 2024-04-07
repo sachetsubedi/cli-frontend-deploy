@@ -1,5 +1,4 @@
 const socket = io(`https://cli-backend-deploy.onrender.com`);
-// const socket = io("http://localhost:3000");
 let userId;
 let roomId = "master";
 
