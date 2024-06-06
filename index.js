@@ -1,4 +1,5 @@
-const socket = io(`https://cli-backend-deploy.onrender.com`);
+// const socket = io(`https://cli-backend-deploy.onrender.com`);
+const socket = io("https://cli-backend.sachetsubedi001.com.np");
 let userId;
 let roomId = "master";
 
