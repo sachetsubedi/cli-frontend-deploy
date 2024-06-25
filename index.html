@@ -1,76 +1,115 @@
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-store, no-cache, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <title>CHAT CLI</title>
+    <link rel="icon" href="./public/assets/png/icon.png" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"
+      integrity="sha512-tE1z+95+lMCGwy+9PnKgUSIeHhvioC9lMlI7rLWU0Ps3XTdjRygLcy4mLuL0JAoK4TLdQEyP0yOl/9dMOqpH/Q=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./src/css/style.css" />
+  </head>
 
-<head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
-	<meta http-equiv="Pragma" content="no-cache">
-	<title>CHAT CLI</title>
-	<link rel="icon" href="./public/assets/png/icon.png">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.js"
-		integrity="sha512-tE1z+95+lMCGwy+9PnKgUSIeHhvioC9lMlI7rLWU0Ps3XTdjRygLcy4mLuL0JAoK4TLdQEyP0yOl/9dMOqpH/Q=="
-		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-		integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-		crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" href="./src/css/style.css" />
-</head>
+  <body>
+    <div
+      class="main flex flex-col bg-gray-700 min-h-[100vh] text-white items-center"
+    >
+      <div
+        class="chatCLIContainer h-full p-2 w-full overflow-hidden md:w-[50%] md:mt-[5%] border-2 rounded-md pt-5 flex flex-col"
+      >
+        <div class="">
+          <div class="header text-center font-semibold">Chat CLI</div>
+          <div>
+            <ul
+              id="messageContainer"
+              class="flex flex-col overflow-y-scroll pb-5 h-[50vh]"
+            >
+              <li class="font-semibold">
+                Welcome to chat CLI <span class="text-lime-400">v1.1.2</span>
+              </li>
+              <li>
+                <hr class="border-2 rounded-full mb-5" />
+                <div id="loadingAnimationContainer" class="text-yellow-400">
+                  Establishing connection
+                  <span id="loadingAnimation" class="text-yellow-500 pl-2">
+                    ___</span
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div id="userInput" class="flex mt-5 mb-2 ml-1">
+            <span
+              class="bg-green-500 pl-2 pr-5 rounded-e-full font-bold mr-2"
+              id="userNameDisplay"
+              >user 1</span
+            >
+            <input type="text" class="font-semibold" id="inputBox" autofocus />
+          </div>
+        </div>
 
-<body>
-	<div class="main flex flex-col bg-gray-700 min-h-[100vh] text-white  items-center">
-		<div class="chatCLIContainer h-[100%]  w-full md:h-[50%] md:w-[50%] md:mt-[5%] border-2 rounded-md  pt-5 flex flex-col justify-between">
-			<div class="px-5">
-				<div class="header text-center font-semibold">Chat CLI</div>
-				<div>
-					<ul id="messageContainer" class="flex flex-col overflow-y-scroll ">
-						<li class="font-semibold">Welcome to chat CLI <span class="text-lime-400">v1.1.2</span></li>
-						<li>
-							<hr class="border-2 rounded-full mb-5">
-							<li id="loadingAnimationContainer" class="text-yellow-400">
-								Establishing connection  <span id="loadingAnimation" class="text-yellow-500 pl-2" > ___</span>
-							</li>
-						</li>
-
-					</ul>
-				</div>
-				<div id="userInput" class="flex mt-5">
-					<span class="bg-green-500 pl-2 pr-5 rounded-e-full font-bold mr-2" id="userNameDisplay">user
-						1</span>
-					<input type="text" class="font-semibold" id="inputBox" autofocus>
-				</div>
-			</div>
-
-
-			<!-- bottom bar -->
-			<div class=" bottom-bar py-1 mt-5 px-2 bg-blue-500 flex justify-between items-center">
-				<div class="left flex gap-10">
-					<div class="flex gap-2  items-center">
-						<i class="fa-solid fa-user"></i>
-						<div id="bottomBarUserName">sachet</div>
-					</div>
-					<div class="room flex gap-2 items-center">
-						<i class="fa-solid fa-globe"></i>
-						<div id="bottomBarRoomId" >Room 1</div>
-					</div>
-				</div>
-				<div class="right">
-					<div class="icons p-1 bg-gray-700 rounded-full flex gap-3 " id="iconsContainer">
-						<a href="https://facebook.com/sachetsubedi001" class="hidden-icons hidden"><i class=" fa-brands fa-facebook"></i></a>
-						<a href="https://instagram.com/sachet_____" class="hidden-icons hidden"><i class=" fa-brands fa-instagram"></i></a>
-						<a href="https://github.com/scht001" class="hidden-icons hidden"><i class=" fa-brands fa-github"></i></a>
-						<a href="https://sachetsubedi001.com.np" class="hidden-icons hidden"><i class=" fa-solid fa-globe"></i></a>
-						<i class=" fa-solid fa-at" id="shownIcon"></i>
-					</div>
-				</div>
-			</div>
-		</div>
-		
-	</div>
-</body>
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="src/scripts/history.js" ></script>
-<script src="index.js"></script>
-<script src="src/scripts/socialIconsController.js"></script>
-<script src="src/scripts/loadingController.js"></script>
-
+        <!-- bottom bar -->
+        <div
+          class="bottom-bar py-1 px-2 bg-blue-500 flex justify-between items-center"
+        >
+          <div class="left flex gap-10">
+            <div class="flex gap-2 items-center">
+              <i class="fa-solid fa-user"></i>
+              <div id="bottomBarUserName">sachet</div>
+            </div>
+            <div class="room flex gap-2 items-center">
+              <i class="fa-solid fa-globe"></i>
+              <div id="bottomBarRoomId">Room 1</div>
+            </div>
+          </div>
+          <div class="right">
+            <div
+              class="icons p-1 bg-gray-700 rounded-full flex gap-3"
+              id="iconsContainer"
+            >
+              <a
+                href="https://facebook.com/sachetsubedi001"
+                class="hidden-icons hidden"
+                ><i class="fa-brands fa-facebook"></i
+              ></a>
+              <a
+                href="https://instagram.com/sachet_____"
+                class="hidden-icons hidden"
+                ><i class="fa-brands fa-instagram"></i
+              ></a>
+              <a href="https://github.com/scht001" class="hidden-icons hidden"
+                ><i class="fa-brands fa-github"></i
+              ></a>
+              <a
+                href="https://sachetsubedi001.com.np"
+                class="hidden-icons hidden"
+                ><i class="fa-solid fa-globe"></i
+              ></a>
+              <i class="fa-solid fa-at" id="shownIcon"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="src/scripts/history.js"></script>
+  <script src="index.js"></script>
+  <script src="src/scripts/socialIconsController.js"></script>
+  <script src="src/scripts/loadingController.js"></script>
 </html>
