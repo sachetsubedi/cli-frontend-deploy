@@ -17,12 +17,12 @@
 </head>
 
 <body>
-	<div class="main flex flex-col bg-gray-700 h-[100vh] text-white  items-center">
-		<div class="chatCLIContainer h-full w-full md:h-[50%] md:w-[50%] md:mt-[5%] border-2 border-white rounded-md  pt-5 flex flex-col justify-between">
+	<div class="main flex flex-col bg-gray-700 min-h-[100vh] text-white  items-center">
+		<div class="chatCLIContainer h-[100%]  w-full md:h-[50%] md:w-[50%] md:mt-[5%] border-2 rounded-md  pt-5 flex flex-col justify-between">
 			<div class="px-5">
 				<div class="header text-center font-semibold">Chat CLI</div>
 				<div>
-					<ul id="messageContainer" class="flex flex-col overflow-y-scroll max-h-80">
+					<ul id="messageContainer" class="flex flex-col overflow-y-scroll ">
 						<li class="font-semibold">Welcome to chat CLI <span class="text-lime-400">v1.1.2</span></li>
 						<li>
 							<hr class="border-2 rounded-full mb-5">
@@ -42,7 +42,7 @@
 
 
 			<!-- bottom bar -->
-			<div class=" bottom-bar py-1 px-2 bg-blue-500 flex justify-between items-center">
+			<div class=" bottom-bar py-1 mt-5 px-2 bg-blue-500 flex justify-between items-center">
 				<div class="left flex gap-10">
 					<div class="flex gap-2  items-center">
 						<i class="fa-solid fa-user"></i>
