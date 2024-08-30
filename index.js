@@ -17,6 +17,7 @@ const playMessage = () => {
   messageAudio.currentTime = 0;
   messageAudio.play();
 };
+
 const playSelfConnected = () => {
   selfConnectedAudio.currentTime = 0;
   selfConnectedAudio.play();
