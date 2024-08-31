@@ -27,13 +27,50 @@
 
   <body>
     <div
-      class="main flex flex-col bg-gray-700 min-h-[100vh] h-full md:h-fit text-white items-center"
+      class="main flex flex-col bg-gray-700 h-screen text-white items-center"
     >
       <div
-        class="chatCLIContainer h-full p-2 w-full overflow-hidden md:w-[50%] md:mt-[5%] border-2 rounded-md pt-5 flex flex-col"
+        class="chatCLIContainer h-[75%] p-2 overflow-hidden w-[50%] mt-[5%] border-2 rounded-md pt-5 flex flex-col"
       >
-        <div class="">
-          <div class="header text-center font-semibold">Chat CLI</div>
+        <div class="h-full">
+          <div class="header text-center font-semibold flex justify-between">
+            <div></div>
+            <div class="info flex gap-2">
+              <div
+                class="flex gap-2 items-center justify-center bg-green-500 rounded-sm px-3 py-1"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="12" cy="6" r="4" fill="currentColor" />
+                  <path
+                    fill="currentColor"
+                    d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5"
+                  />
+                </svg>
+                <div id="bottomBarUserName" class="font-bold text-sm">User</div>
+              </div>
+              <div
+                class="room flex gap-2 items-center bg-purple-500 px-3 rounded-sm py-1"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="1em"
+                  height="1em"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M4 21q-.425 0-.712-.288T3 20t.288-.712T4 19h1V5q0-.825.588-1.412T7 3h10q.825 0 1.413.588T19 5v14h1q.425 0 .713.288T21 20t-.288.713T20 21zm10-8q.425 0 .713-.288T15 12t-.288-.712T14 11t-.712.288T13 12t.288.713T14 13"
+                  />
+                </svg>
+                <div id="bottomBarRoomId" class="text-sm font-bold">Room 1</div>
+              </div>
+            </div>
+          </div>
           <div>
             <ul
               id="messageContainer"
@@ -53,6 +90,7 @@
               </li>
             </ul>
           </div>
+
           <div id="userInput" class="flex mt-5 mb-2 ml-1">
             <span
               class="bg-green-500 pl-2 pr-5 rounded-e-full font-bold mr-2"
