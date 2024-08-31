@@ -54,7 +54,7 @@ socket.on("connectionSuccess", (userName) => {
   userId = userName;
   document.getElementById("userNameDisplay").innerHTML = `${userName}`;
   const newLi = document.createElement("li");
-  newLi.innerHTML = `You are connected as <span class="text-lime-500">${userName} </span> <br> You are connected to room: <span class="text-lime-500">${roomId}</span> <br> <span class="text-yellow-400">/help</span> for help`;
+  newLi.innerHTML = `You are connected as <span class="text-lime-500">${userName} </span> <br> You are connected to room: <span class="text-purple-500">${roomId}</span> <br> <span class="text-yellow-400">/help</span> for help`;
   newLi.style.fontWeight = "bold";
   document.getElementById("messageContainer").append(newLi);
   messageContainer.scrollTop = messageContainer.scrollHeight;
@@ -129,7 +129,7 @@ socket.on("renamed", ({ oldUsername, userName }) => {
 // room created
 socket.on("roomCreated", (roomId) => {
   const newLi = document.createElement("li");
-  newLi.innerHTML = `You created a room: <span class="text-lime-400"> ${roomId} </span>`;
+  newLi.innerHTML = `You created a room: <span class="text-purple-400"> ${roomId} </span>`;
   messageContainer.append(newLi);
   messageContainer.scrollTop = messageContainer.scrollHeight;
 });
@@ -137,7 +137,7 @@ socket.on("roomCreated", (roomId) => {
 // room joined
 socket.on("roomJoined", (room) => {
   const newLi = document.createElement("li");
-  newLi.innerHTML = `You joined a room: <span class="text-lime-400"> ${room} </span>`;
+  newLi.innerHTML = `You joined a room: <span class="text-purple-400"> ${room} </span>`;
   messageContainer.append(newLi);
   roomId = room;
   refreshDetails();
