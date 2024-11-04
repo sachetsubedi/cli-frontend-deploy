@@ -74,10 +74,10 @@
           <div class="">
             <ul
               id="messageContainer"
-              class="flex flex-col overflow-y-scroll pt-2 h-[52vh]"
+              class="flex flex-col overflow-y-scroll pt-2 h-96 gap-2"
             >
               <li class="font-semibold">
-                Welcome to chat CLI <span class="text-lime-400">v1.2.1</span>
+                Welcome to chat CLI <span class="text-lime-400">v1.3.1</span>
               </li>
               <li>
                 <hr class="border-2 rounded-full mb-5" />
@@ -91,12 +91,11 @@
             </ul>
           </div>
 
-          <div id="userInput" class="flex mt-5 mb-2 ml-1">
+          <div id="userInput" class="flex mt-5 mb-2 ml-1 border p-2 rounded-md">
             <span
               class="bg-green-500 pl-2 pr-5 rounded-e-full font-bold mr-2"
               id="userNameDisplay"
-              >user 1</span
-            >
+            ></span>
             <input type="text" class="font-semibold" id="inputBox" autofocus />
           </div>
         </div>
@@ -106,6 +105,5 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="src/scripts/history.js"></script>
   <script src="index.js"></script>
-  <!-- <script src="src/scripts/socialIconsController.js"></script> -->
   <script src="src/scripts/loadingController.js"></script>
 </html>

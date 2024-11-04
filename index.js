@@ -215,9 +215,9 @@ const displayHelp = () => {
   const newLi = document.createElement("li");
   newLi.innerHTML = `
 	-------------------------------------------------------------- <br>
-	<span class="text-yellow-400">/rename </span> new_username ---------------- change you username <br>
-	<span class="text-yellow-400">/createroom </span>---------------- create a room <br>
-	<span class="text-yellow-400">/joinroom </span>room_id ---------------- join a room <br>  
+	<span class="text-yellow-400">/rename </span> new_username --> change your username <br>
+	<span class="text-yellow-400">/createroom </span> --> create a room <br>
+	<span class="text-yellow-400">/joinroom </span>room_id --> join a room <br>  
 	-------------------------------------------------------------- <br>
 	`;
   newLi.classList.add("font-semibold");
